@@ -1,0 +1,116 @@
+<LoginScreen>:
+    GridLayout:
+        cols: 1
+        GridLayout:
+            cols: 1
+            padding: 15, 15
+            spacing: 20, 20
+            Label:
+                text: "User Login"
+                font_size: "20sp"
+            TextInput:
+                id: username
+                hint_text: "User Name"
+            TextInput:
+                id: password
+                password: True
+                hint_text: "Password"
+            RelativeLayout:
+                Button:
+                    text: "Login"
+                    on_press: root.home_screen(root.ids.username.text, root.ids.password.text)
+                    size_hint: 0.3, 0.5
+                    pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                Label:
+                    id: incorrect
+                    text: ""
+
+        GridLayout:
+            cols: 2
+            size_hint: 0.2, 0.2
+            padding: 30, 30
+            spacing: 20, 0
+            Button:
+                text: "forgot password"
+                background_color: 1, 1, 1, 0
+                opacity: 1 if self.state == 'normal' else 0.5
+                color: 0.1, 0.7, 1, 1
+            Button:
+                text: "Sign Up"
+                background_color: 1, 1, 1, 0
+                opacity: 1 if self.state == 'normal' else 0.5
+                color: 0.1, 0.7, 1, 1
+                on_press: root.sign_up()
+
+<SignUpScreen>:
+    GridLayout:
+        cols: 1
+        padding: 15, 15
+        spacing: 20, 20
+        Label:
+            text: "Sign Up to be Happy"
+        TextInput:
+            id: username
+            hint_text: "User Name"
+        TextInput:
+            id: password
+            hint_text: "Password"
+        RelativeLayout:
+            Button:
+                text: "Sign Up"
+                size_hint: 0.3, 0.5
+                pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                on_press: root.add_user(root.ids.username.text, root.ids.password.text)
+
+
+<SignUpSuccess>
+    GridLayout:
+        cols: 1
+        padding: 15, 15
+        spacing: 20, 20
+        Label:
+            text: "Success!"
+        RelativeLayout:
+            Button:
+                text: "Login"
+                size_hint: 0.3, 0.3
+                pos_hint: {'center_x': 0.5, 'center_y': 0.6}
+                on_press: root.log_in()
+
+
+<HomeScreen>
+    GridLayout:
+        cols: 1
+        padding: 15, 15
+        spacing: 20, 20
+        RelativeLayout:
+            ImageButton:
+                on_press: root.log_out()
+                source: 'image/logout_hover.png' if self.hovered else "image/logout_nothover.png"
+                size_hint: .35, .25
+                pos_hint: {'center_x': .95, 'center_y': .85}
+        Label:
+            text: "WELCOME"
+        TextInput:
+            id: quote
+            hint_text: "Enter a topic"
+        Button:
+            text: "SEARCH"
+            on_press: root.get_quote(root.ids.quote.text)
+        ScrollView:
+            Label:
+                id: topic
+                text: ""
+                text_size: self.width, None
+                size_hint_y: None
+                height: self.texture_size[1]
+
+<RootWidget>:
+    LoginScreen:
+        name: "login_screen"
+    SignUpScreen:
+        name: "sign_up_screen"
+    SignUpSuccess:
+        name: "sign_up_success"
+    HomeScreen:
+        name: "home_screen"
